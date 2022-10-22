@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import Reservation from './reservation';
 
 const userSchema = new Schema({
     name: {
@@ -17,6 +18,17 @@ const userSchema = new Schema({
     }
 },{
     timestamps: true,
+})
+
+userSchema.post('findOneAndDelete', async function(doc){
+    try {
+        const result = await Reservation.deleteMany({ user_id: doc?._id });
+        if(+result.deletedCount >= 0){
+            return;
+        }
+    } catch (error: unknown) {
+        console.error('Mongoose middleware error (USERS): ',error);
+    }
 })
 
 export default model('Users', userSchema);

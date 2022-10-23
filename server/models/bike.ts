@@ -7,7 +7,7 @@ const bikeSchema = new Schema({
     location: String,
     rating: {
         type: [Number],
-        get: (v: number[]) => (v.reduce((acc, ele) => acc + ele) / v.length)
+        // get: (v: number[]) => [(v.reduce((acc, ele) => acc + ele) / v.length)]
     },
     nextAvailableDate: {
         type: Date,
@@ -16,6 +16,8 @@ const bikeSchema = new Schema({
 }, {
     timestamps: true
 });
+
+bikeSchema.index({ model: 1, color: 1, location: 1 }, { unique: true });
 
 bikeSchema.post('findOneAndDelete', async function(doc){
     try {

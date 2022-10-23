@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "start:dev": "DEBUG=easy-bikes:server ts-node ./bin/www"
+    "dev": "DEBUG=easy-bikes:server nodemon --ext ts --exec ts-node ./bin/www"
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -31,6 +30,7 @@
     "@types/express": "^4.17.14",
     "@types/http-errors": "^1.8.2",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^18.11.3"
+    "@types/node": "^18.11.3",
+    "nodemon": "^2.0.20"
   }
 }

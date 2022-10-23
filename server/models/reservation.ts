@@ -30,6 +30,8 @@ const reservationSchema = new Schema({
     timestamps: true
 })
 
+reservationSchema.index({ user_id: 1, bike_id: -1 })
+
 reservationSchema.post('save', async function(doc){
     const query =  { nextAvailableDate: doc?.endDate }
     const result = await Bikes.update(doc?.bike_id as unknown as string, query);

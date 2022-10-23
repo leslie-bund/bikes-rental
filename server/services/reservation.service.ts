@@ -1,38 +1,58 @@
 import Reservations from "../repos/reservations";
 
-class ReservationService {
-
-    // Cancel a reservation
-    async cancel(reservationId: string){
-        const query = { _id: reservationId }
-        return await Reservations._delete(query);
-    }
-
-    // Add a reservation with date and bikeId
-    async reserveBike(start: string, end: string, user_id: string, bike_id: string){
-        const newEntity = {
-            startDate: start,
-            endDate: end,
-            user_id,
-            bike_id
-        }
-        return await Reservations.add(newEntity as unknown as Ifilter)
-    }
-
-    // View all reservations
-    async viewAllReservation(){
-        return await Reservations.allReservations()
-    }
-
-    // Users reserved and Dates
-    async viewAllUserReservations(){
-        return await Reservations.allUsersReservationAndDates()
-    }
-
-    // Bikes reserved and Dates
-    async viewAllBikeReservations(){
-        return await Reservations.allBikesReservationAndDates()
-    }
+interface Ifilter {
+    [k: string]: string | Date | Ifilter | number | unknown;
 }
 
-export default ReservationService
+class ReservationService {
+  // Cancel a reservation
+  static async cancel(reservationId: string) {
+    const query = { _id: reservationId };
+    return await Reservations._delete(query);
+  }
+
+  // Get reservations by single user
+  static async userReserved(userId: string) {
+    return await Reservations.getAll({ user_id: userId });
+  }
+
+  // Add a reservation with date and bikeId
+  static async reserveBike(
+    start: string | Date,
+    end: string | Date,
+    user_id: string,
+    bike_id: string
+  ) {
+    const newEntity = {
+      startDate: start,
+      endDate: end,
+      user_id,
+      bike_id,
+    };
+    const reserved = await Reservations.add(newEntity as unknown as Ifilter);
+    if(reserved){
+      const doc = await Reservations.getOne(newEntity);
+      if(doc){
+        return doc;
+      }
+    }
+    return null; 
+  }
+
+  // View all reservations
+  static async viewAllReservation() {
+    return await Reservations.allReservations();
+  }
+
+  // Users reserved and Dates
+  static async viewAllUserReservations() {
+    return await Reservations.allUsersReservationAndDates();
+  }
+
+  // Bikes reserved and Dates
+  static async viewAllBikeReservations() {
+    return await Reservations.allBikesReservationAndDates();
+  }
+}
+
+export default ReservationService;

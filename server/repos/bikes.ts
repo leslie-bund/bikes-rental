@@ -4,6 +4,14 @@ import Bikes from "../models/bike";
 import HttpStatusCodes from "../configurations/HttpStatusCodes";
 import { RouteError } from "../declarations/classes";
 
+
+interface IBike {
+    model?: string;
+    color?: string;
+    location?: string;
+    rating?: number | string;
+}
+
 class BikeRepository extends UniversalRepository {
     constructor(Bikes: Model<any>){
         super(Bikes)
@@ -26,12 +34,14 @@ class BikeRepository extends UniversalRepository {
     // Rate bike with a score of 1 - 5
     async rateBike(rating: number,bikeId: string){
         try {
-            const doc = this.update(bikeId, { 
+            const doc = await this.model.updateOne({ _id: bikeId }, { 
                 $push: {
                     rating: rating
-                } 
+                }
             });
-            return doc;
+            if(doc.acknowledged){
+                return await this.getOne({ _id: bikeId });
+            }
         } catch (error: any) {
             throw new RouteError(HttpStatusCodes.NO_CONTENT, error?.message);
         }

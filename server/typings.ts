@@ -3,40 +3,41 @@ interface Ifilter {
 }
 
 interface ILogin {
-    email: string
-    password: string
+    email: string;
+    password: string;
 }
 
 interface ISignUp {
-    name: string
-    email: string
-    password: string
-    confirmPassword?: string
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword?: string;
 }
 
 interface IUserEdit {
-    newPassword?: string
-    confirmPassword?: string
-    name?: string
-    email?: string
-    role?: string
+    newPassword?: string;
+    confirmPassword?: string;
+    name?: string;
+    email?: string;
+    role?: string;
 }
 
-interface IBike {
-    model?: string
-    color?: string
-    location?: string
-    rating?: number | string
+interface IUser {
+    password?: string;
+    name?: string;
+    email?: string;
+    role?: string;
 }
+
 
 interface IReservation {
-    user_id?: string
-    bike_id?: string
-    startDate?: Date | string
-    endDate?: Date | string
+    user_id?: string;
+    bike_id?: string;
+    startDate?: Date | string;
+    endDate?: Date | string;
 }
 
 interface IRating {
-    id: string
-    rating: number | string
+    id: string;
+    rating: number | string;
 }

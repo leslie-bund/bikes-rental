@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', indexRouter);
+app.use('/mngr', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req: Request, res: Response, next: NextFunction) {
@@ -29,7 +29,7 @@ app.use(function(err: HttpError, req: Request, res: Response, next: NextFunction
 
   // render the error page
   res.status(err.status || 500);
-  res.send('An error occured');
+  res.json({ err: err.message });
 });
 
 // module.exports = app;

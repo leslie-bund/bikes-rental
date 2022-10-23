@@ -7,7 +7,7 @@ import HttpStatusCodes from "../configurations/HttpStatusCodes";
 class ValidationService {
 
     // Login validation
-    async validateLogin(req: Request, res: Response, next: NextFunction){
+    static async validateLogin(req: Request, res: Response, next: NextFunction){
             
         const schema = Joi.object({
             email: Joi.string()
@@ -18,7 +18,7 @@ class ValidationService {
 
         try {
             // Validate input details
-            const data = req.body;
+            const { user, ...data } = req.body;
             const valid = await schema.validateAsync({...data});
             if(valid){
                 next();
@@ -34,7 +34,7 @@ class ValidationService {
     }
 
     // sign up validation
-    async validateSignUp(req: Request, res: Response, next: NextFunction){
+    static async validateSignUp(req: Request, res: Response, next: NextFunction){
             
         const schema = Joi.object({
             name: Joi.string(),
@@ -47,7 +47,7 @@ class ValidationService {
 
         try {
             // Validate input details
-            const data = req.body;
+            const { user, ...data } = req.body;
             const valid = await schema.validateAsync({...data});
             if(valid){
                 next();
@@ -58,14 +58,13 @@ class ValidationService {
                 const {message} = error.details[0];
                 next(new RouteError( HttpStatusCodes.CONFLICT, message));
             }
-               
         }
     }
 
     // User edit validation - user
-    async validateUserEdit(req: Request, res: Response, next: NextFunction){
+    static async validateUserEdit(req: Request, res: Response, next: NextFunction){
         const schema = Joi.object({
-            newPassword: Joi.string()
+            password: Joi.string()
             .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
             
             confirmPassword: Joi.ref('password'),
@@ -76,7 +75,7 @@ class ValidationService {
 
         try {
             // Validate input details
-            const data = req.body;
+            const { user, ...data } = req.body;
             const valid = await schema.validateAsync({...data});
             if(valid){
                 next();
@@ -92,18 +91,18 @@ class ValidationService {
     }
 
     // Bike edit validation
-    async validateBikeEntry(req: Request, res: Response, next: NextFunction){
+    static async validateBikeEntry(req: Request, res: Response, next: NextFunction){
 
         const schema = Joi.object({
             model: Joi.string(),
             color: Joi.string(),
             location: Joi.string(),
-            rating: Joi.number().max(5).min(1)
+            // rating: Joi.number().max(5).min(1)
         })
 
         try {
             // Validate input details
-            const data = req.body;
+            const { user, ...data } = req.body;
             const valid = await schema.validateAsync({...data});
             if(valid){
                 next();
@@ -119,17 +118,17 @@ class ValidationService {
     }
 
     // reserve a bike validation
-    async validateReservation(req: Request, res: Response, next: NextFunction){
+    static async validateReservation(req: Request, res: Response, next: NextFunction){
         const schema = Joi.object({
-            user_id: Joi.string<ObjectId>(),
-            bike_id: Joi.string<ObjectId>(),
-            startDate: Joi.string(),
-            endDate: Joi.string()
+            // user_id: Joi.string<ObjectId>(), // user_id is present in req.body.user after auth
+            // bike_id: Joi.string<ObjectId>(),
+            startDate: Joi.date(),
+            endDate: Joi.date()
         })
 
         try {
             // Validate input details
-            const data = req.body;
+            const { user, ...data } = req.body;
             const valid = await schema.validateAsync({...data});
             if(valid){
                 next();
@@ -145,16 +144,41 @@ class ValidationService {
     }
 
     // Rate a bike validation
-    async validateRating(req: Request, res: Response, next: NextFunction){
+    static async validateRating(req: Request, res: Response, next: NextFunction){
         
         const schema = Joi.object({
-            id: Joi.string<ObjectId>(),
+            // bikeId: Joi.string<ObjectId>(),
             rating: Joi.number().max(5).min(1)
         })
 
         try {
             // Validate input details
-            const data = req.body;
+            const { user, ...data } = req.body;
+            const valid = await schema.validateAsync({...data});
+            if(valid){
+                next();
+            }
+        } catch (error: unknown ) {
+            // Send Error to handler
+            if (error instanceof ValidationError){
+                const {message} = error.details[0];
+                next(new RouteError( HttpStatusCodes.CONFLICT, message));
+            }
+               
+        }
+    }
+
+    // bike availability Date validation
+    static async validateDate(req: Request, res: Response, next: NextFunction){
+        
+        const schema = Joi.object({
+            // bikeId: Joi.string<ObjectId>(),
+            date: Joi.date()
+        })
+
+        try {
+            // Validate input details
+            const { user, ...data } = req.body;
             const valid = await schema.validateAsync({...data});
             if(valid){
                 next();

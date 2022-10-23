@@ -1,12 +1,12 @@
 import UniversalRepository from "./universal";
 import { Model } from "mongoose";
-import Reservations from "../models/reservation";
+import Reservation from "../models/reservation";
 import { RouteError } from "../declarations/classes";
 import HttpStatusCodes from "../configurations/HttpStatusCodes";
 
 class ReservationRepository extends UniversalRepository {
-    constructor(Reservations: Model<any>){
-        super(Reservations)
+    constructor(Reservation: Model<any>){
+        super(Reservation)
     }
 
     //view all reservations
@@ -60,4 +60,4 @@ class ReservationRepository extends UniversalRepository {
     }
 }
 
-export default new ReservationRepository(Reservations);
+export default new ReservationRepository(Reservation);

@@ -3,6 +3,9 @@ import { RouteError } from "../declarations/classes";
 import { Document, Model } from "mongoose";
 import HttpStatusCodes from "../configurations/HttpStatusCodes";
 
+interface Ifilter {
+    [k: string]: string | Date | Ifilter | number | unknown;
+}
 
 class UniversalRepository {
     model: Model<any>;
@@ -12,7 +15,7 @@ class UniversalRepository {
     /**
      * Get one user.
      */
-    async getOne(filter: any): Promise<Document | null> {
+    async getOne<T>(filter: any): Promise<Document<T, any> | null> {
         try {
             const doc = await this.model.findOne(filter).lean().exec()
             if(!doc) {
@@ -69,7 +72,7 @@ class UniversalRepository {
     /**
      * Update a user.
      */
-    async update(id: string, updateObj: Ifilter): Promise<Document | unknown> {
+    async update<T>(id: string, updateObj: any): Promise<Document<T> | unknown> {
         try {
             const doc = await this.model.findByIdAndUpdate(id, { $set: updateObj }, { new: true }).lean().exec();
             return doc;

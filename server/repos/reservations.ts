@@ -58,6 +58,21 @@ class ReservationRepository extends UniversalRepository {
             throw new RouteError(HttpStatusCodes.NO_CONTENT, error?.message);  
         }
     }
+
+    //Get Reservations for each user and the bikes
+    async userReservations(userId: string) {
+        try {
+            const doc = await this.model.findById(userId)
+            .populate('bike_id')
+            .sort({ endDate: 1 })
+            .lean()
+            .exec()
+
+            return doc;
+        } catch (error: any) {
+            throw new RouteError(HttpStatusCodes.NO_CONTENT, error?.message);  
+        }
+    }
 }
 
 export default new ReservationRepository(Reservation);

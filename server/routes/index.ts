@@ -23,6 +23,9 @@ router.use(AuthService.useAuth);
  * Available bikes(spec date) -> reservationcontroller.list
 */
 
+/** GET all reservations by a user */
+router.get('/my', UserController.viewUserReservations)
+
 /**POST reserve a bike */
 router.post('/reserve-bike/:bikeId', ValidationService.validateReservation, UserController.reserveBike);
 
@@ -33,6 +36,6 @@ router.patch('/rate-bike/:bikeId', ValidationService.validateRating, UserControl
 router.delete('/cancel-reserve/:id', UserController.cancelReservation);
 
 /**GET available bikes from date */
-router.get('/available-bikes', ValidationService.validateDate, UserController.availableBikesByDate)
+router.get('/available-bikes/:date', ValidationService.validateDate, UserController.availableBikesByDate)
 
 export default router;

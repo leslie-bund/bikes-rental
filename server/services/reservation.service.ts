@@ -13,7 +13,7 @@ class ReservationService {
 
   // Get reservations by single user
   static async userReserved(userId: string) {
-    return await Reservations.getAll({ user_id: userId });
+    return await Reservations.userReservations(userId);
   }
 
   // Add a reservation with date and bikeId

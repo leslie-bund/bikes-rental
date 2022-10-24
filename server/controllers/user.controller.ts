@@ -39,7 +39,7 @@ class UserController {
 
     // All available bikes [for specified Date]
     static availableBikesByDate = asyncHandler(async function usrCtrlAvailByDate(req: Request, res: Response, next: NextFunction){
-        const { date } = req.body;
+        const { date } = req.params;
         const bikes = await BikeService.availableByDate(date);
         if(bikes){
             res.status(HttpStatusCodes.OK).json({ data: bikes, status: 'OK' })
@@ -97,6 +97,18 @@ class UserController {
         res.sendStatus(HttpStatusCodes.NOT_FOUND)
         return;
     } )
+
+    //All reservation for a user
+    static viewUserReservations = asyncHandler(async function usrCtrlViewAllReserved(req: Request, res: Response, next: NextFunction) {
+        const { _id: userId } = req.body.user;
+        const result = await ReservationService.userReserved(userId);
+        if(result){
+            res.status(HttpStatusCodes.OK).json({ data: result, status: 'OK' })
+            return;
+        }
+        res.sendStatus(HttpStatusCodes.NOT_FOUND)
+        return;
+    })
 }
 
 export default UserController

@@ -2,7 +2,10 @@ import { Schema, model } from "mongoose";
 import Reservation from "./reservation";
 
 const bikeSchema = new Schema({
-    model: String,
+    model: {
+        type: String,
+        unique: true
+    },
     color: String,
     location: String,
     rating: {

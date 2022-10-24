@@ -1,27 +1,24 @@
-.App {
-  text-align: center;
+.icon-hamburger-bar {
+  padding: 1.5px 4px;
+  width: 1.5rem;
+  background-color: rgb(162, 162, 162);
+  border-radius: 2px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.icon-hamburger-bar:first-of-type {
+  margin-bottom: 3px;
+}
+.icon-hamburger-bar:last-of-type {
+  margin-top: 3px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 2s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  .logo {
+    animation:  rot forwards 1s linear;
+  }
 }
 
 .App-link {
@@ -30,9 +27,20 @@
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: translateX(50px);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateX(0);
+  }
+}
+
+@keyframes rot {
+  from {
+    transform: rotateY(0deg);
+    display: none;
+  } 
+  to {
+    display: contents;
+    transform: rotateY(180deg);
   }
 }

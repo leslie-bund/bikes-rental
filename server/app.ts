@@ -1,14 +1,18 @@
 import createError, { HttpError } from 'http-errors';
 import express, { Request, Response, NextFunction } from 'express';
 import cookieParser from 'cookie-parser';
-import logger from 'morgan'
+import logger from 'morgan';
+import cors from 'cors'
 
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 
 const app = express();
 
-app.use(logger('dev'));
+app.use(logger('dev'));app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+}))
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

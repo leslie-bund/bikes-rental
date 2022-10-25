@@ -2,18 +2,24 @@ import { Route, Navigate } from "react-router-dom";
 import { Home } from "./pages";
 import { AuthContextProvider } from "./context/AuthContext";
 import { Dashboard } from "./components";
-import { AvailableBikes } from "./pages";
+import {
+  AvailableBikes,
+  ReserveBike,
+  UserReservations,
+  Reservations,
+} from "./pages";
 import "./App.css";
 
 function App() {
-  // const { loggedIn } = useContext(AuthContext);
-  // const [isOpen, setIsOpen] = useState(false)
   return (
     <AuthContextProvider>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Dashboard />}>
         <Route path="/home/avail-bikes" element={<AvailableBikes />} />
-        <Route path="/home/*" element={<Navigate to={"/"} />} />
+        <Route path="/home/my-reserve" element={<UserReservations />} />
+        <Route path="/home/reserve-bike/:id" element={<ReserveBike />} />
+        <Route path="/home/all-reservation/:mode" element={<Reservations />} />
+        <Route path="/home/*" element={<Navigate to={"/home/avail-bikes"} />} />
       </Route>
       <Route path="/*" element={<Navigate to={"/"} />} />
     </AuthContextProvider>

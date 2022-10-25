@@ -1,5 +1,10 @@
-export { default as Login } from './login'
-export { default as Signup } from './signup'
-export { default as Dashboard } from './dashboard'
-export { default as SideBar } from './sidebar'
-export { default as BikeBoard } from './bikeBoard'
+export { default as Login } from "./login";
+export { default as Signup } from "./signup";
+export { default as Dashboard } from "./dashboard";
+export { default as SideBar } from "./sidebar";
+export { default as BikeBoard } from "./bikeBoard";
+export { default as CancelReserve } from "./cancellable";
+export { default as Rated } from "./rated";
+export { default as Plain } from "./plain";
+export { default as InfoTable } from "./infoTable";
+export { default as MngrGuard } from "./ManagerGuard";

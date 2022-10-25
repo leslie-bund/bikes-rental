@@ -15,6 +15,7 @@ class ReservationRepository extends UniversalRepository {
             const doc = await this.model.find({ 
                 endDate: { $gte: new Date() }
             })
+            .populate(['user_id', 'bike_id'])
             .sort({ endDate: 1 })
             .lean()
             .exec()
@@ -62,7 +63,7 @@ class ReservationRepository extends UniversalRepository {
     //Get Reservations for each user and the bikes
     async userReservations(userId: string) {
         try {
-            const doc = await this.model.findById(userId)
+            const doc = await this.model.find({user_id: userId})
             .populate('bike_id')
             .sort({ endDate: 1 })
             .lean()

@@ -3,7 +3,7 @@ import {
   BsBicycle,
   BsCardList,
   BsPeopleFill,
-  BsPieChartFill
+  BsPieChartFill,
 } from "react-icons/bs";
 
 interface IMenu {
@@ -20,7 +20,7 @@ export const userNav = [
     icon: BsBicycle,
   },
   {
-    path: "/home/my",
+    path: "/home/my-reserve",
     icon: BsFillCalendarPlusFill,
     label: "My Reservations",
   },
@@ -31,17 +31,17 @@ export const userNav = [
 
 export const mngrNav = [
   {
-    path: "/home/all-reservation",
+    path: "/home/all-reservation/default",
     label: "All Reservations",
     icon: BsCardList,
   },
   {
-    path: '/home/all-user-reservations',
+    path: '/home/all-reservation/users',
     label: 'User Reservations',
     icon: BsPeopleFill
   },
   {
-    path: '/home/all-bikes-reserved',
+    path: '/home/all-reservation/bikes',
     label: 'Bikes Reserved',
     icon: BsPieChartFill
   }

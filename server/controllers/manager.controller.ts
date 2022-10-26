@@ -41,6 +41,17 @@ class ManagerController {
         return;
     })
 
+    // All Users
+    static viewAllUsers = asyncHandler(async function mngrCtrlAllUsrs(req: Request, res: Response, next: NextFunction) {
+        const allUsers = await UserService.viewAllUsers()
+        if(allUsers){
+            res.status(HttpStatusCodes.OK).json({ data: allUsers , status: 'OK' })
+            return;
+        }
+        res.sendStatus(HttpStatusCodes.NOT_FOUND)
+        return;
+    })
+
     // Edit single User
     static editUser = asyncHandler(async function mngrCtrlEditUsr(req: Request, res: Response, next: NextFunction){
         const { user, ...data } = req.body;
@@ -107,6 +118,17 @@ class ManagerController {
         const editedBike = await BikeService.edit(data, bikeId);
         if(editedBike){
             res.status(HttpStatusCodes.OK).json({ data: editedBike , status: 'OK' })
+            return;
+        }
+        res.sendStatus(HttpStatusCodes.NOT_FOUND)
+        return;
+    })
+
+    // Get all Bikes
+    static allBikes = asyncHandler(async function mngrCtrlAllBikes(req: Request, res: Response, next: NextFunction) {
+        const allBikes = await BikeService.getAllBikes();
+        if(allBikes) {
+            res.status(HttpStatusCodes.OK).json({ data: allBikes , status: 'OK' })
             return;
         }
         res.sendStatus(HttpStatusCodes.NOT_FOUND)

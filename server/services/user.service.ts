@@ -63,6 +63,15 @@ class UserService {
     return doc;
   }
 
+  // All users
+  static async viewAllUsers() {
+      const doc = await User.getAll()
+      if(!doc){
+        return null;
+      }
+      return doc
+  }
+
   // Create user and return created user for login form auto-fill
   static async signUp(input: ISignUp & { role?: string }, role: string) {
     const { password } = input;

@@ -12,6 +12,12 @@ interface Ifilter {
 }
 
 class BikeService {
+
+    // Get all bikes
+    static async getAllBikes(){
+        return await Bikes.getAll();
+    }
+
     // Create a bike and return the created bike
     static async createBike(input: Omit<IBike, 'rating'>){
         const bikeAdded = await Bikes.add(input as unknown as Ifilter);

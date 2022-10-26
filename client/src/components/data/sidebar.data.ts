@@ -2,8 +2,12 @@ import {
   BsFillCalendarPlusFill,
   BsBicycle,
   BsCardList,
-  BsPeopleFill,
+  BsPersonPlusFill,
   BsPieChartFill,
+  BsFillPeopleFill,
+  BsSpeedometer,
+  BsPinAngleFill,
+  BsBarChartFill
 } from "react-icons/bs";
 
 interface IMenu {
@@ -17,7 +21,7 @@ export const userNav = [
   {
     path: "/home/avail-bikes",
     label: "Available Bikes",
-    icon: BsBicycle,
+    icon: BsBarChartFill,
   },
   {
     path: "/home/my-reserve",
@@ -36,15 +40,35 @@ export const mngrNav = [
     icon: BsCardList,
   },
   {
-    path: '/home/all-reservation/users',
-    label: 'User Reservations',
-    icon: BsPeopleFill
+    path: "/home/new-user",
+    label: "Add User",
+    icon: BsPersonPlusFill
   },
   {
-    path: '/home/all-reservation/bikes',
-    label: 'Bikes Reserved',
-    icon: BsPieChartFill
-  }
+    path: "/home/all/user",
+    label: "All Users",
+    icon: BsFillPeopleFill,
+  },
+  {
+    path: "/home/all-reservation/users",
+    label: "User Reservations",
+    icon: BsPinAngleFill,
+  },
+  {
+    path: "/home/new-bike",
+    label: "Add Bike",
+    icon: BsBicycle
+  },
+  {
+    path: "/home/all/bike",
+    label: "All Bikes",
+    icon: BsSpeedometer,
+  },
+  {
+    path: "/home/all-reservation/bikes",
+    label: "Bikes Reserved",
+    icon: BsPieChartFill,
+  },
 ].map((ele: IMenu, ind) => {
   ele["id"] = "user" + ind;
   return ele;

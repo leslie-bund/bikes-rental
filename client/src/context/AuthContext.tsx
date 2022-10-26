@@ -56,9 +56,10 @@ function AuthContextProvider(props: any) {
     try {
       const result = await axios.post(`${BASEURL}/user/signup`, input);
       if (result.status === 200) {
-        setUser(result.data.data?.result);
+        // setUser(result.data.data?.result);
         window.alert('Account Created Successfully')
       }
+      return;
     } catch (error: any) {
       console.log("### Sign up Result ###", error);
       window.alert(JSON.stringify(error));

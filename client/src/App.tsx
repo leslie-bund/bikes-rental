@@ -7,7 +7,10 @@ import {
   ReserveBike,
   UserReservations,
   Reservations,
+  AllViews,
+  NewUser
 } from "./pages";
+import { EditUser, SingleUser, SingleBike } from "./components";
 import "./App.css";
 
 function App() {
@@ -19,6 +22,15 @@ function App() {
         <Route path="/home/my-reserve" element={<UserReservations />} />
         <Route path="/home/reserve-bike/:id" element={<ReserveBike />} />
         <Route path="/home/all-reservation/:mode" element={<Reservations />} />
+
+        <Route path="/home/all/:mode" element={ <AllViews /> } />
+        <Route path="/home/new-user" element={ <NewUser /> } />
+        <Route path="/home/edit-user/:id" element={ <EditUser /> } />
+        <Route path="/home/one-user/:id" element={ <SingleUser /> } />
+        <Route path="/home/one-bike/:id" element={ <SingleBike /> } />
+
+        <Route path="/home/multi/:type[edit,view,create]/:mode[user/bike]/:id"/> 
+        
         <Route path="/home/*" element={<Navigate to={"/home/avail-bikes"} />} />
       </Route>
       <Route path="/*" element={<Navigate to={"/"} />} />

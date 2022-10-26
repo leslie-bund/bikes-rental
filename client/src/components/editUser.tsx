@@ -1,56 +1,83 @@
 import axios from "axios";
-import { ChangeEvent, useState, FormEvent, useContext } from "react";
+import { ChangeEvent, useState, FormEvent, useContext, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import { NewUser } from "../pages";
 
 interface IsignUp {
   name: string;
   email: string;
+  role?: string;
   password: string;
   confirmPassword: string;
 }
 
-const BASEURL = process.env.REACT_APP_BASEURL
+const BASEURL = process.env.REACT_APP_BASEURL;
 
-const Signup = () => {
+const EditForm = () => {
   const [formData, setFormData] = useState({} as IsignUp);
-  const { signup, user, token } = useContext(AuthContext);
-  const [newUserRole, setNewUserRole] = useState(false);
+  const { token } = useContext(AuthContext);
+  const [userInfo, setUserInfo] = useState<IsignUp | null>(null)
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement & HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!newUserRole) {
-      signup(formData);
-    } else {
-      create(formData);
-    }
-  };
-
-  async function create(input: IsignUp) {
+  const hintUser = async () => {
     try {
-      const result = await axios.post(`${BASEURL}/mngr/create`, input, {
+      const res = await axios.get(`${BASEURL}/mngr/get-user/${id}`, {
         headers: {
           authorization: token as string,
         },
       });
-      if (result.status === 200) {
-        window.alert('Account Created Successfully')
+      if (res.status === 200 || res.status === 304) {
+        setUserInfo(res.data.data)
       }
-      return;
     } catch (error: any) {
-      console.log("### Sign up Result ###", error);
-      window.alert(JSON.stringify(error));
+      console.error(error);
     }
-  }
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await axios.patch(
+        `${BASEURL}/mngr/edit-user/${id}`,
+        formData,
+        {
+          headers: {
+            authorization: token as string,
+          },
+        }
+      );
+      if (res.status === 200) {
+        window.alert(JSON.stringify(res.data.data, null, 2));
+        navigate(`/home/one-user/${res.data.data._id}`);
+      }
+    } catch (error: any) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    hintUser();
+  }, [])
+  
 
   return (
-    <>
+    <div className="container pt-5">
+      {userInfo && <div className="card mb-2 p-4">
+        <b>{userInfo?.name}</b>
+        <small className="text-muted">{userInfo?.email}</small>
+        <small className="text-muted"><em><b>Role:&nbsp;</b></em>{userInfo?.role}</small>
+      </div>}
       <form onSubmit={handleSubmit}>
         <div className="form-floating mb-1">
           <input
@@ -64,22 +91,20 @@ const Signup = () => {
           />
           <label htmlFor="floatingName">Full name</label>
         </div>
-        {user.role !== "manager" ? null : (
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              onChange={() => { setNewUserRole(!newUserRole) }}
-              id="flexCheckIndeterminate"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="flexCheckIndeterminate"
-            >
-              Manager
-            </label>
-          </div>
-        )}
+        <div className="form-floating mb-1">
+          <select
+            name="role"
+            className="form-select"
+            id="floatingInput"
+            placeholder="name@example.com"
+            onChange={handleChange}
+          >
+            <option value="">Choose</option>
+            <option value="user">User</option>
+            <option value="manager">Manager</option>
+          </select>
+          <label htmlFor="floatingInput">Role</label>
+        </div>
         <div className="form-floating mb-1">
           <input
             type="email"
@@ -117,12 +142,12 @@ const Signup = () => {
           <label htmlFor="floatingConfPassword">Confirm password</label>
         </div>
         <button className="w-100 btn btn-lg btn-primary" type="submit">
-          {user.role !== "manager" ? "Sign in" : "Create User"}
+          Save
         </button>
         <p className="mt-5 mb-3 text-muted">&copy; 2019–2022</p>
       </form>
-    </>
+    </div>
   );
 };
 
-export default Signup;
+export default EditForm;

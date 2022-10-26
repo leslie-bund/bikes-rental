@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi"
 import AuthContext from "../context/AuthContext";
 import { userNav, mngrNav } from "./data/sidebar.data";
 
 const SideBar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
   return (
     <>
       <div className="card mb-3 p-4">
@@ -47,6 +48,10 @@ const SideBar = () => {
           ))}
         </div>
       ) : null}
+      <button className="btn btn-warning text-dark" onClick={() => { logout(); }}>
+        <BiArrowBack />
+        Logout
+      </button>
     </>
   );
 };

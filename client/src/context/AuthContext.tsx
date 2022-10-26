@@ -15,6 +15,7 @@ interface IContext {
   loggedIn: boolean;
   token: string | unknown;
   user: IUser;
+  logout: () => void;
   login: (input: Ilogin) => void | Promise<void>;
   signup: (input: IsignUp) => void | Promise<void>;
 }
@@ -35,7 +36,14 @@ function AuthContextProvider(props: any) {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [token, setToken] = useState("");
-  const [user, setUser] = useState({} as IUser);
+  const [user, setUser] = useState<IUser>({} as IUser);
+
+  async function logout() {
+    setToken('');
+    setLoggedIn(false);
+    setUser({} as IUser);
+    navigate('/');
+  }
 
   async function login(input: Ilogin) {
     try {
@@ -72,7 +80,7 @@ function AuthContextProvider(props: any) {
 
   return (
     <>
-      <AuthContext.Provider value={{ loggedIn, token, user, login, signup }}>
+      <AuthContext.Provider value={{ loggedIn, token, user, login, signup, logout }}>
         <Routes>{props.children}</Routes>
       </AuthContext.Provider>
     </>

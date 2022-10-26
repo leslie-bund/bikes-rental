@@ -49,7 +49,7 @@ const BikeBoard = ({ data, model, color, location, rate }: IProps) => {
     <div className="row pt-3">
       {result.length > 0 ? (
         result.map((ele) => (
-          <div className="col-sm-4 col-md-3 col-lg-2 mb-2" key={ele?._id}>
+          <div className="col-md-6 col-lg-4 mb-2" key={ele?._id}>
             <div className="card">
               <div className="card-body d-flex flex-column p-2">
                 <b>{ele?.model}</b>

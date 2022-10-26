@@ -30,9 +30,7 @@ function App() {
         <Route path="/home/edit-bike/:id" element={ <EditBike /> } />
         <Route path="/home/one-user/:id" element={ <SingleUser /> } />
         <Route path="/home/one-bike/:id" element={ <SingleBike /> } />
-
-        <Route path="/home/multi/:type[edit,view,create]/:mode[user/bike]/:id"/> 
-        
+      
         <Route path="/home/*" element={<Navigate to={"/home/avail-bikes"} />} />
       </Route>
       <Route path="/*" element={<Navigate to={"/"} />} />

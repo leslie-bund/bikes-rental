@@ -19,7 +19,7 @@ const reservationSchema = new Schema({
             validator: function(v: string){
                 return new Date(v).getTime() >= new Date().getTime()
             },
-            message: 'Cannot reserve for dates earlier than today!'
+            message: 'Have to reserve for dates other than today!'
         }
     },
     endDate: {

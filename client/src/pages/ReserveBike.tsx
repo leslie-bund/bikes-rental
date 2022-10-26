@@ -50,7 +50,7 @@ const ReserveBike = () => {
       return;
     } else if (
       new Date(formData?.startDate).getTime() >
-      new Date(formData?.endDate).getTime()
+      new Date(formData?.endDate).getTime() || new Date(formData?.startDate).getTime() === new Date().getTime()
     ) {
       setErr2(true);
       setErr1(true);

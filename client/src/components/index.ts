@@ -11,3 +11,4 @@ export { default as MngrGuard } from "./ManagerGuard";
 export { default as EditUser } from "./editUser";
 export { default as SingleUser } from "./SingleUser";
 export { default as SingleBike } from "./SingleBike";
+export { default as EditBike } from "./editBike";

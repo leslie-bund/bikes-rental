@@ -1,5 +1,5 @@
 import { Route, Navigate } from "react-router-dom";
-import { Home } from "./pages";
+import { Home, NewBike } from "./pages";
 import { AuthContextProvider } from "./context/AuthContext";
 import { Dashboard } from "./components";
 import {
@@ -10,7 +10,7 @@ import {
   AllViews,
   NewUser
 } from "./pages";
-import { EditUser, SingleUser, SingleBike } from "./components";
+import { EditUser, SingleUser, SingleBike, EditBike } from "./components";
 import "./App.css";
 
 function App() {
@@ -25,7 +25,9 @@ function App() {
 
         <Route path="/home/all/:mode" element={ <AllViews /> } />
         <Route path="/home/new-user" element={ <NewUser /> } />
+        <Route path="/home/new-bike" element={ <NewBike /> } />
         <Route path="/home/edit-user/:id" element={ <EditUser /> } />
+        <Route path="/home/edit-bike/:id" element={ <EditBike /> } />
         <Route path="/home/one-user/:id" element={ <SingleUser /> } />
         <Route path="/home/one-bike/:id" element={ <SingleBike /> } />
 

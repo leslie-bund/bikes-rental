@@ -41,7 +41,7 @@ const SingleBike = () => {
   return (
     <>
       <div className="row m-3">
-        <div className="col-sm-6 col-md-3">
+        <div className="col-sm-6 col-lg-4">
           {bikeData ? (
             <div className="card mb-2 p-4">
               <b>{bikeData?.model}</b>

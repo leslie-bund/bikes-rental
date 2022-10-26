@@ -73,10 +73,11 @@ const EditForm = () => {
 
   return (
     <div className="container pt-5">
-      {userInfo && <div className="card mb-2 p-4">
-        <b>{userInfo?.name}</b>
-        <small className="text-muted">{userInfo?.email}</small>
-        <small className="text-muted"><em><b>Role:&nbsp;</b></em>{userInfo?.role}</small>
+      {userInfo && <div className="card mb-2 pb-3">
+        <div className="card-header mb-3"><span className="lead text-muted badge bg-gray">Editing</span></div>
+        <b className="ms-3">{userInfo?.name}</b>
+        <small className="ms-3 text-muted">{userInfo?.email}</small>
+        <small className="ms-3 text-muted"><em><b>Role:&nbsp;</b></em>{userInfo?.role}</small>
       </div>}
       <form onSubmit={handleSubmit}>
         <div className="form-floating mb-1">
@@ -95,15 +96,14 @@ const EditForm = () => {
           <select
             name="role"
             className="form-select"
-            id="floatingInput"
-            placeholder="name@example.com"
+            id="floatingInput67"
             onChange={handleChange}
           >
             <option value="">Choose</option>
             <option value="user">User</option>
             <option value="manager">Manager</option>
           </select>
-          <label htmlFor="floatingInput">Role</label>
+          <label htmlFor="floatingInput67">Role</label>
         </div>
         <div className="form-floating mb-1">
           <input

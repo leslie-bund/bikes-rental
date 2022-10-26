@@ -89,6 +89,7 @@ const AllViews = () => {
     queryApi();
 
     return () => { setParam(mode) }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return param ? (

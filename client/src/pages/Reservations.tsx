@@ -60,11 +60,11 @@ const Reservations = () => {
     } catch (error: any) {
       console.error(error);
     }
-    // Call Api and switch check mode in scope, log the data and use the interface to type the info board, then know how to pass the props to be displayed with the display functions(more on display functions)....in infoTable.
   };
 
   useEffect(() => {
     queryApi();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode]);
 
   return (

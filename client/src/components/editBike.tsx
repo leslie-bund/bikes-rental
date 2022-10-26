@@ -2,7 +2,6 @@ import axios from "axios";
 import { ChangeEvent, useState, FormEvent, useContext, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import { NewUser } from "../pages";
 
 
 interface IBike {
@@ -70,6 +69,7 @@ const EditBikeForm = () => {
 
   useEffect(() => {
     hintUser();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
 

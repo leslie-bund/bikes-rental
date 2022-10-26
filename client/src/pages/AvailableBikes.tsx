@@ -60,6 +60,7 @@ const AllBikes = () => {
   };
   useEffect(() => {
     queryApi();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, token]);
 
   return (

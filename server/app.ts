@@ -2,7 +2,7 @@ import createError, { HttpError } from 'http-errors';
 import express, { Request, Response, NextFunction } from 'express';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import cors from 'cors'
+import cors from 'cors';
 
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';

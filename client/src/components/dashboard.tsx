@@ -10,7 +10,6 @@ interface IProps {
 
 const AuthGuard = ({ children }: IProps) => {
   const { loggedIn } = useContext(AuthContext);
-
   return loggedIn ? <>{children}</> : <Navigate to="/" />;
 };
 
